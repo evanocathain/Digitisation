@@ -1,0 +1,10 @@
+NITER=100.0
+python3 digi2.py > $NITER"iterations"
+awk -v niter=$NITER '{s+=$2; ss+=$2*$2; if (NR%niter==0) {print $1,(s/niter),sqrt((ss/niter) - (s/niter)*(s/niter)); s=0.0; ss=0.0}}' $NITER"iterations" > $NITER"iterations2"
+awk -v niter=$NITER '{s+=$3; ss+=$3*$3; if (NR%niter==0) {print $1,(s/niter),sqrt((ss/niter) - (s/niter)*(s/niter)); s=0.0; ss=0.0}}' $NITER"iterations" > $NITER"iterations3"
+
+# GNUPLOT
+#plot [][0:1]"100.0iterations2" u 1:2:3 wi ye title "1-bit", "100.0iterations3" u 1:2:3 wi ye title "2-bit"
+#This plots the 1-bit and 2-bit S/N over the analogue S/N, by simulation, 
+#for 100 iterations, as a function of the signal strength.
+
